@@ -7,18 +7,18 @@ import { getPokemons } from './utils/PokeApi';
 export default function App() {
 
   const [text, setText] = useState()
+  const [listPokemon, setListPokemon] = useState()
 
   const displayColor = (color) => {
     console.log(color);
   }
-  async function getPoke(){
-    let pokemons = await getPokemons();
-    console.log(pokemons);
-  }
 
   useEffect(() => {
-    getPoke();
-  })
+    getPokemons().then(datas => {
+        console.log(datas)
+        setListPokemon(datas)
+    })
+  });
 
   return (
     <View style={styles.container}>
