@@ -1,51 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
-import CustomButton from './compenents/CustomButton';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, Image, View, FlatList, SafeAreaView } from 'react-native';
+import { PokeCard } from './compenents/PokeCard';
 import { getPokemons } from './utils/PokeApi';
 
 export default function App() {
 
-  //const [text, setText] = useState()
-  const [listPokemon, setListPokemon] = useState()
+  const [listPokemon, setListPokemon] = useState([])
+  const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon")
 
-  let nextPage = null;
+  const renderPokemon = ({item}) => {
+    return <PokeCard name={item.name} url={item.url} />
+  }
 
-  /*const displayColor = (color) => {
-    console.log(color);
-  }*/
-
-  const renderPokemon = ({item}) => (
-    <Text style={styles.text}>{item.name}</Text>
-  )
+  const loadPokemon = (url) => {
+    getPokemons(url).then(datas => {
+      setListPokemon([...listPokemon, ...datas.results])
+      setNextPage(datas.next)
+    })
+  }
 
   useEffect(() => {
-    getPokemons().then(datas => {
-        console.log(datas)
-        setListPokemon(datas.results)
-    })
+    loadPokemon(nextPage)
   }, []);
 
   return (
     <View style={styles.container}>
-      {/*<Text>{text}</Text>
-      <StatusBar style="auto" />
-      <CustomButton color={"#ff0000"} title={"oui"} setText={setText}/>
-      <CustomButton color={"#ff00ff"} title={"non"} setText={setText}/>
-      <CustomButton color={"#00ff00"} title={"peutetre"} setText={setText}/>*/}
       <FlatList
+        horizontal={false}
         data={listPokemon}
         renderItem={renderPokemon}
         keyExtractor={item => item.name}
         numColumns={2}
         onEndReached={() => {
-          console.log('end')
-          if (nextPage){
-            getPokemons().then(datas => {
-              nextPage = datas.nextPage
-              setListPokemon(datas.results)
-            })
-          } 
+          loadPokemon(nextPage)
         }}
       />
     </View>
@@ -55,13 +42,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    backgroundColor: 'red',
-    padding: '2rem',
-    margin: '2rem'
+    paddingTop: 30
   }
 });
