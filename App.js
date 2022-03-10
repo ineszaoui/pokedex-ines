@@ -25,6 +25,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.h1}>Shiny Pokedex</Text>
       <FlatList
         horizontal={false}
         data={listPokemon}
@@ -46,5 +47,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 30
+  },
+  h1: {
+    color: 'white',
+    fontSize: 30,
+    paddingTop: 10
   }
 });

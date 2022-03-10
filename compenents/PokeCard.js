@@ -1,18 +1,33 @@
 import {StyleSheet, View, Text, Image } from 'react-native';
+import { useState, useEffect } from 'react';
+import { getPokemons } from '../utils/PokeApi';
 
 export function PokeCard(props) {
 
   const {name, url, ...restProps} = props
 
+  const [pokeDatas, setPokeDatas] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(()=>{
+    getPokemons(url).then(data => {
+      setPokeDatas(data)
+      setIsLoading(false)
+    })
+  },[])
+
   return (
+    !isLoading?
     <View style={styles.pokemon}>
         <Image
           style={styles.imgPoke}
-          source={{
-            uri: 'https://assets.pokemon.com/assets//cms2-fr-fr/img/video-games/_tiles/pokemon-go/03012022/pokemon-go-34.jpg',
-          }}
+          source={{uri:pokeDatas.sprites.front_shiny}}
         />
         <Text style={styles.text}>{name}</Text>
+    </View>
+    :
+    <View style={styles.pokemon}>
+        <Text>Loading...</Text>
     </View>
   );
 }
