@@ -1,56 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Image, View, FlatList, SafeAreaView } from 'react-native';
-import { PokeCard } from './compenents/PokeCard';
-import { getPokemons } from './utils/PokeApi';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './pages/Home';
+import DetailsPoke from './pages/DetailsPoke';
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
-
-  const [listPokemon, setListPokemon] = useState([])
-  const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon")
-
-  const renderPokemon = ({item}) => {
-    return <PokeCard name={item.name} url={item.url} />
-  }
-
-  const loadPokemon = (url) => {
-    getPokemons(url).then(datas => {
-      setListPokemon([...listPokemon, ...datas.results])
-      setNextPage(datas.next)
-    })
-  }
-
-  useEffect(() => {
-    loadPokemon(nextPage)
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.h1}>Shiny Pokedex</Text>
-      <FlatList
-        horizontal={false}
-        data={listPokemon}
-        renderItem={renderPokemon}
-        keyExtractor={item => item.name}
-        numColumns={2}
-        onEndReached={() => {
-          loadPokemon(nextPage)
-        }}
-      />
-    </View>
+    <NavigationContainer>
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} options={{ title: 'Shiny Pokedex' }} />
+            <Stack.Screen name="DetailsPoke" component={DetailsPoke} options={{ title: 'Details' }} />
+        </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 30
-  },
-  h1: {
-    color: 'white',
-    fontSize: 30,
-    paddingTop: 10
-  }
-});

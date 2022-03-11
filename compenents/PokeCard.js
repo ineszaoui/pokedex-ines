@@ -1,10 +1,10 @@
-import {StyleSheet, View, Text, Image } from 'react-native';
+import {StyleSheet, View, Text, Image, Button } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getPokemons } from '../utils/PokeApi';
 
 export function PokeCard(props) {
 
-  const {name, url, ...restProps} = props
+  const {name, url, navigation, ...restProps} = props
 
   const [pokeDatas, setPokeDatas] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -21,9 +21,16 @@ export function PokeCard(props) {
     <View style={styles.pokemon}>
         <Image
           style={styles.imgPoke}
-          source={{uri:pokeDatas.sprites.front_shiny}}
+          source={{uri:pokeDatas.sprites.versions["generation-iv"]["diamond-pearl"].front_shiny}}
         />
         <Text style={styles.text}>{name}</Text>
+        <Button title="Go to Details" color="#000000" onPress={() => navigation.navigate('DetailsPoke', {
+          itemId: pokeDatas.id,
+          name: name,
+          img_front: pokeDatas.sprites.versions["generation-iv"]["diamond-pearl"].front_shiny,
+          img_back: pokeDatas.sprites.versions["generation-iv"]["diamond-pearl"].back_shiny,
+          type: pokeDatas.types[0].type.name,
+          })}/>
     </View>
     :
     <View style={styles.pokemon}>
