@@ -5,7 +5,6 @@ import { getPokemons } from '../utils/PokeApi';
 
 export default function Home({ navigation }) {
 
-
   const [listPokemon, setListPokemon] = useState([])
   const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon")
 
