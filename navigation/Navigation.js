@@ -25,7 +25,7 @@ function PokemonStack() {
 export function Navigation() {
   return (
     <NavigationContainer>
-      <Tab.Navigator activeColor="red" barStyle={{ backgroundColor: 'white' }}>
+      <Tab.Navigator screenOptions={{tabBarActiveTintColor:"red"}}>
           <Tab.Screen name="Home" component={PokemonStack} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ), }}/>

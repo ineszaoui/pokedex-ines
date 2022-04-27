@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Image, View, FlatList, Button} from 'react-native';
+import { StyleSheet, View, FlatList} from 'react-native';
 import { PokeCard } from '../compenents/PokeCard';
 import { getPokemons } from '../utils/PokeApi';
 
