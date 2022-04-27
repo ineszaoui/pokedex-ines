@@ -22,6 +22,21 @@ function PokemonStack() {
   );
 }
 
+function PokemonSearch() {
+  return (
+      <Stack.Navigator>
+          <Stack.Screen name="PokemonSearch" component={Search} options={{ title: 'Search' }} />
+      </Stack.Navigator>
+  );
+}
+
+function PokemonSettings() {
+  return (
+      <Stack.Navigator>
+          <Stack.Screen name="PokemonSettings" component={Settings} options={{ title: 'Settings' }} />
+      </Stack.Navigator>
+  );
+}
 export function Navigation() {
   return (
     <NavigationContainer>
@@ -29,10 +44,10 @@ export function Navigation() {
           <Tab.Screen name="Home" component={PokemonStack} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ), }}/>
-          <Tab.Screen name="Search" component={Search} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
+          <Tab.Screen name="Search" component={PokemonSearch} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="magnify" color={color} size={26} />
           ), }}/>
-          <Tab.Screen name="Settings" component={Settings} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
+          <Tab.Screen name="Settings" component={PokemonSettings} options={{ headerShown: false, tabBarShowLabel: true, tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cog" color={color} size={26} />
           ), }}/>
       </Tab.Navigator>

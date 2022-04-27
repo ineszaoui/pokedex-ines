@@ -53,12 +53,11 @@ const styles = StyleSheet.create({
       textInput: {
           width:  '80%',
           backgroundColor: 'lightgrey',
-          marginTop: '10%',
           marginBottom: '5%',
           padding: 15,
           borderStyle: 'solid',
           borderColor: 'black',
-          borderWidth: 1,
+          borderWidth: 3,
           borderRadius: 10,
       },
       button: {
